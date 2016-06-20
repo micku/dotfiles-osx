@@ -44,6 +44,7 @@ casks=(
   sequel-pro
   skype
   slack
+  spectacle
   spotify
   the-unarchiver
   virtualbox
