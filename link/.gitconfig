@@ -80,3 +80,4 @@
     path = ~/.gitconfig.local
 [user]
 	name = Michele Gargiulo
+	email = michele@grg.io
