@@ -78,3 +78,5 @@
 [include]
   # For username / github token / etc
     path = ~/.gitconfig.local
+[user]
+	name = Michele Gargiulo
