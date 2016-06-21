@@ -16,6 +16,7 @@ recipes=(
   lesspipe
   nmap
   python
+  reattach-to-user-namespace
   ssh-copy-id
   terminal-notifier
   the_silver_searcher

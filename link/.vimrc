@@ -1,57 +1,62 @@
-" ---------------------- PRE START ----------------------
-" don't make vim compatible with vi 
-"set nocompatible
-" Note: Skip initialization for vim-tiny or vim-small.
-if !1 | finish | endif
-
-if has('vim_starting')
-    if &compatible
-        set nocompatible               " Be iMproved
-    endif
-
-    " Required:
-    set runtimepath+=~/.vimfiles
-    set runtimepath+=~/.vimfiles/bundle/neobundle.vim/
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
 endif
 
 " Required:
-call neobundle#begin(expand('$HOME/.vimfiles/bundle/'))
+set runtimepath+=$HOME/.vim
+set runtimepath^=$HOME/.vim/bundle/dein.vim/repos/github.com/Shougo/dein.vim
 
-" Let NeoBundle manage NeoBundle
 " Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+call dein#begin(expand('$HOME/.vim/bundle/dein.vim/'))
 
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
 " List of plugins
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-fugitive'
-"NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'tpope/vim-speeddating'
-NeoBundle 'tpope/vim-vinegar'
-NeoBundle 'terryma/vim-expand-region'
-NeoBundle 'christoomey/vim-tmux-navigator'
+call dein#add('itchyny/lightline.vim')
+call dein#add('tpope/vim-surround')
+call dein#add('tpope/vim-fugitive')
+"call dein#add('scrooloose/nerdtree')
+call dein#add('tpope/vim-speeddating')
+call dein#add('tpope/vim-vinegar')
+call dein#add('terryma/vim-expand-region')
+call dein#add('christoomey/vim-tmux-navigator')
 " Auto save
-NeoBundle '907th/vim-auto-save'
+call dein#add('907th/vim-auto-save')
 " Web dev
-NeoBundle 'Shutnik/jshint2.vim'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'groenewege/vim-less'
-NeoBundle 'skammer/vim-css-color'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'fatih/vim-go'
+call dein#add('Shutnik/jshint2.vim')
+call dein#add('mattn/emmet-vim')
+call dein#add('groenewege/vim-less')
+call dein#add('skammer/vim-css-color')
+call dein#add('hail2u/vim-css3-syntax')
+call dein#add('fatih/vim-go')
 
-call neobundle#end()
+" You can specify revision/branch/tag.
+"call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+" Required:
+call dein#end()
 
 " Required:
 filetype plugin indent on
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+"End dein Scripts-------------------------
+if !1 | finish | endif
+
+"if has('vim_starting')
+    "if &compatible
+        "set nocompatible               " Be iMproved
+    "endif
+"
+    "" Required:
+    "set runtimepath+=~/.vim
+"endif
 
 " run JSHint when a file with .js extension is saved
 " this requires the jsHint2 plugin
@@ -223,9 +228,9 @@ autocmd BufNewFile,BufRead *.go setlocal ft=go
 set undofile
 
 " dirs for backup, undo and ...
-set backupdir=$HOME/.vimfiles/temp//
-set undodir=$HOME/.vimfiles/temp//
-set directory=$HOME/.vimfiles/temp//
+set backupdir=$HOME/.vim/temp//
+set undodir=$HOME/.vim/temp//
+set directory=$HOME/.vim/temp//
 
 " use <leader-space> to remove search higlight
 nnoremap <leader><space> :noh<cr>

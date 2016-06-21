@@ -49,7 +49,7 @@ plugins=(git colored-man colorize github jira vagrant virtualenv pip python brew
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/go/bin"
+export PATH="~/Library/Python/2.7/bin:~/Library/Python/2.7/lib/python/site-packages:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/go/bin"
 alias mxmlc46=~/Dev/SDKs/flex_sdk_4.6/bin/mxmlc
 alias mxmlc36a=~/Dev/SDKs/flex_sdk_3.6a/bin/mxmlc
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -88,3 +88,5 @@ source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/heroku/bin:$PATH"
 
 export EDITOR="vim"
+
+source ~/.bin/tmuxinator.zsh
