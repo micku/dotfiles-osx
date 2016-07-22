@@ -6,7 +6,7 @@ is_osx || return 1
 
 # Homebrew recipes
 recipes=(
-  android-platform-tools
+  android-sdk
   cmatrix
   cowsay
   git

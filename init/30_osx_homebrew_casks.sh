@@ -33,6 +33,7 @@ casks=(
   hex-fiend
   hyperswitch
   iterm2
+  java
   keepassx
   macdown
   menumeters
