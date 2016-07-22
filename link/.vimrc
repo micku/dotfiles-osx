@@ -1,62 +1,42 @@
-"dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
 " Required:
 set runtimepath+=$HOME/.vim
-set runtimepath^=$HOME/.vim/bundle/dein.vim/repos/github.com/Shougo/dein.vim
 
-" Required:
-call dein#begin(expand('$HOME/.vim/bundle/dein.vim/'))
-
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
-" List of plugins
-call dein#add('itchyny/lightline.vim')
-call dein#add('tpope/vim-surround')
-call dein#add('tpope/vim-fugitive')
-"call dein#add('scrooloose/nerdtree')
-call dein#add('tpope/vim-speeddating')
-call dein#add('tpope/vim-vinegar')
-call dein#add('terryma/vim-expand-region')
-call dein#add('christoomey/vim-tmux-navigator')
-" Auto save
-call dein#add('907th/vim-auto-save')
-" Web dev
-call dein#add('Shutnik/jshint2.vim')
-call dein#add('mattn/emmet-vim')
-call dein#add('groenewege/vim-less')
-call dein#add('skammer/vim-css-color')
-call dein#add('hail2u/vim-css3-syntax')
-call dein#add('fatih/vim-go')
-
-" You can specify revision/branch/tag.
-"call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-
-" Required:
-call dein#end()
-
-" Required:
-filetype plugin indent on
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
+"vim-plug Scripts-----------------------------
+" Check if vim-plug is installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
-"End dein Scripts-------------------------
-if !1 | finish | endif
+call plug#begin('~/.vim/plugged')
 
-"if has('vim_starting')
-    "if &compatible
-        "set nocompatible               " Be iMproved
-    "endif
+" List of plugins
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-vinegar'
+Plug 'terryma/vim-expand-region'
+Plug 'christoomey/vim-tmux-navigator'
+" Auto save
+Plug '907th/vim-auto-save'
+" Web dev
+Plug 'Shutnik/jshint2.vim'
+Plug 'mattn/emmet-vim'
+Plug 'groenewege/vim-less'
+Plug 'skammer/vim-css-color'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'fatih/vim-go'
+
+call plug#end()
+"End vim-plug Scripts-------------------------
 "
-    "" Required:
-    "set runtimepath+=~/.vim
-"endif
+if !1 | finish | endif
 
 " run JSHint when a file with .js extension is saved
 " this requires the jsHint2 plugin
