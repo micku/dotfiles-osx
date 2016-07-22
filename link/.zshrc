@@ -86,6 +86,8 @@ source $ZSH/oh-my-zsh.sh
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="/usr/local/Cellar/android-sdk/24.4.1_1/tools:/usr/local/Cellar/android-sdk/24.4.1_1/platform-tools:$PATH"
+export ANDROID_HOME="/usr/local/Cellar/android-sdk/24.4.1_1"
 
 export EDITOR="vim"
 
