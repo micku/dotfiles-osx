@@ -21,6 +21,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-vinegar'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler'
 Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
 " Auto save
@@ -217,6 +219,17 @@ nnoremap <leader><space> :noh<cr>
 
 " netrw configuration
 let g:netrw_liststyle = 3
+let g:vimfiler_safe_mode_by_default = 0
+let g:vimfiler_as_default_explorer = 1
+
+let g:vimfiler_tree_lead_icon = " "
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '✓'
+let g:vimfiler_readonly_icon = "\ue0a2"
+"let g:vimfiler_quick_look_command = 'gloobus-preview'
+let g:vimfiler_ignore_pattern = '^\%(.git\|.idea\|.DS_Store\|.pyc\)$'
 
 " Windows splitting
 set splitbelow
