@@ -242,7 +242,7 @@ let colors_name = "solarized"
 " neutral gray monotone palette component)
 if (has("gui_running") && g:solarized_degrade == 0)
     let s:vmode       = "gui"
-    let s:base03      = "#1c2529"
+    let s:base03      = "#202020"
     let s:base02      = "#303030"
     let s:base01      = "#586e75"
     let s:base00      = "#657b83"
@@ -264,7 +264,7 @@ elseif (has("gui_running") && g:solarized_degrade == 1)
     " while in gui mode via "let g:solarized_degrade=1", though this is not
     " recommened and is for testing only.
     let s:vmode       = "gui"
-    let s:base03      = "#1c2529"
+    let s:base03      = "#1c1c1c"
     let s:base02      = "#262626"
     let s:base01      = "#4e4e4e"
     let s:base00      = "#585858"

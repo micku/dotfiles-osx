@@ -8,6 +8,7 @@ is_osx || return 1
 recipes=(
   android-sdk
   cmatrix
+  coreutils
   cowsay
   git
   git-extras
