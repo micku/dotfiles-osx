@@ -22,13 +22,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-vinegar'
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/vimfiler'
 Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
 " Auto save
 Plug '907th/vim-auto-save'
 " Web dev
-Plug 'Shutnik/jshint2.vim'
+Plug 'neomake/neomake'
 Plug 'mattn/emmet-vim'
 Plug 'groenewege/vim-less'
 Plug 'skammer/vim-css-color'
@@ -37,12 +36,12 @@ Plug 'fatih/vim-go'
 
 call plug#end()
 "End vim-plug Scripts-------------------------
-"
 if !1 | finish | endif
 
 " run JSHint when a file with .js extension is saved
 " this requires the jsHint2 plugin
-autocmd BufWritePost *.js silent :JSHint
+autocmd! BufWritePost,BufEnter * Neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
 
 " Enable lightline at startup
 set laststatus=2
@@ -65,14 +64,6 @@ let g:lightline = {
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ }
-"let g:lightline = {
-      "\ 'colorscheme': 'wombat'
-      "\ 'component': {
-      "\   'readonly': '%{&readonly?"":""}',
-      "\ },
-      "\ 'separator': { 'left': '', 'right': '' },
-      "\ 'subseparator': { 'left': '', 'right': '' }
-      "\ }
 function! MyFugitive()
         if &ft !~? 'vimfiler' && exists('*fugitive#head')
                 let _ = fugitive#head()
@@ -140,12 +131,6 @@ let mapleader = ","
 " windows like clipboard
 " yank to and paste from the clipboard without prepending "* to commands
 let &clipboard = has('unnamedplus') ? 'unnamedplus' : 'unnamed'
-
-" map c-x and c-v to work as they do in windows, only in insert mode
-"vm <c-x> "+x
-"vm <c-c> "+y
-"cno <c-v> <c-r>+
-"exe 'ino <script> <C-V>' paste#paste_cmd['i']
 
 " keep the cursor visible within 3 lines when scrolling
 set scrolloff=3
@@ -219,26 +204,17 @@ nnoremap <leader><space> :noh<cr>
 
 " netrw configuration
 let g:netrw_liststyle = 3
-let g:vimfiler_safe_mode_by_default = 0
-let g:vimfiler_as_default_explorer = 1
-
-let g:vimfiler_tree_lead_icon = " "
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '✓'
-let g:vimfiler_readonly_icon = "\ue0a2"
-"let g:vimfiler_quick_look_command = 'gloobus-preview'
-let g:vimfiler_ignore_pattern = '^\%(.git\|.idea\|.DS_Store\|.pyc\)$'
+set wildignore+=*.pyc
 
 " Windows splitting
 set splitbelow
 set splitright
 
-nmap <silent> <C-k> <C-w>k
-nmap <silent> <C-j> <C-w>j
-nmap <silent> <C-l> <C-w>l
-nmap <silent> <C-h> <C-w>h
+" Fixes wrong mapping of C-h in MacOS + Neovim
+" https://github.com/neovim/neovim/issues/2048#issuecomment-92776095
+if has('nvim')
+  nmap <bs> :<c-u>TmuxNavigateLeft<cr>
+endif
 nmap <silent> <C-tab> <C-w>w
 nmap <silent> <C-t><C-j> <C-w>s-
 nmap <silent> <C-t><C-k> <C-w>s-
@@ -298,13 +274,6 @@ nnoremap <silent> <Leader>a :vertical resize +5<CR>
 if has('mouse')
     set mouse=a
 endif
-
-" Highlight line only in active buffer
-"augroup CursorLine
-  "au!
-  "au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  "au WinLeave * setlocal nocursorline
-"augroup END
 
 " Move by displayed lines, not by fisical lines
 noremap  <buffer> <silent> k gk
