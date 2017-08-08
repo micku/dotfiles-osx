@@ -39,8 +39,6 @@ Plug 'mxw/vim-jsx'
 Plug 'fatih/vim-go'
 Plug 'pangloss/vim-javascript'
 Plug 'leshill/vim-json'
-if exists('g:nyaovim_version')
-endif
 
 call plug#end()
 "End vim-plug Scripts-------------------------
@@ -174,9 +172,6 @@ let g:jellybeans_overrides = {
 \    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
 \}
 colorscheme jellybeans
-"colorscheme solarized
-"colorscheme Tomorrow-Night
-"colorscheme smyck
  
 " Auto save
 let g:auto_save = 1
@@ -298,7 +293,6 @@ au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 au FileType go nmap <F12> <Plug>(go-def)
-"au FileType go nmap <S-F12> <Plug>(go-def-vertical)
 au FileType go nmap <leader>ds <Plug>(go-def-split)
 au FileType go nmap <leader>dv <Plug>(go-def-vertical)
 
@@ -339,7 +333,3 @@ noremap  <buffer> <silent> k gk
 noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
-
-if exists('g:nyaovim_version')
-    colorscheme evening
-endif
