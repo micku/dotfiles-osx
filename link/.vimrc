@@ -24,9 +24,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'Shougo/unite.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'vim-syntastic/syntastic'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'neomake/neomake'
+Plug 'w0rp/ale'
 " Auto save
 Plug '907th/vim-auto-save'
 " Web dev
@@ -44,17 +43,13 @@ call plug#end()
 "End vim-plug Scripts-------------------------
 if !1 | finish | endif
 
-" run JSHint when a file with .js extension is saved
-" this requires the jsHint2 plugin
-autocmd! BufWritePost,BufEnter * Neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
-
 " Enable lightline at startup
 set laststatus=2
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
+      \   'right': [ [ 'lineinfo', 'readonly', 'linter_warnings', 'linter_errors', 'linter_ok' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
       \   'fugitive': 'MyFugitive'
@@ -67,9 +62,20 @@ let g:lightline = {
       \   'readonly': '(&filetype!="help"&& &readonly)',
       \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
       \ },
-      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
-      \ }
+      \ 'component_expand': {
+      \   'linter_warnings': 'LightlineLinterWarnings',
+      \   'linter_errors': 'LightlineLinterErrors',
+      \   'linter_ok': 'LightlineLinterOK'
+      \ },
+      \ 'component_type': {
+      \   'readonly': 'error',
+      \   'linter_warnings': 'warning',
+      \   'linter_errors': 'error',
+      \   'linter_ok': 'ok'
+      \ },
+      \ 'separator': { 'left': "", 'right': "" },
+      \ 'subseparator': { 'left': "|", 'right': "|" }
+\ }
 function! MyFugitive()
         if &ft !~? 'vimfiler' && exists('*fugitive#head')
                 let _ = fugitive#head()
@@ -227,24 +233,6 @@ endif
 " jsx settings
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" syntastic + golang
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'gometalinter']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-let g:go_list_type = "quickfix"
-
-" syntastic + js
-let g:syntastic_javascript_checkers = ['eslint']
-
 " make undo persistant
 set undofile
 
@@ -296,9 +284,6 @@ au FileType go nmap <F12> <Plug>(go-def)
 au FileType go nmap <leader>ds <Plug>(go-def-split)
 au FileType go nmap <leader>dv <Plug>(go-def-vertical)
 
-" Does not work
-"au FileType go nmap <Leader>l :!gox -osarch="linux/amd64" -output="bin\{{.Dir}}_{{.OS}}_{{.Arch}}" ./...<cr>
-
 " set the cursor to a vertical line in insert mode and a solid block
 " in command mode
 if exists('$TMUX')
@@ -333,3 +318,25 @@ noremap  <buffer> <silent> k gk
 noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
+
+" ALE
+let g:ale_sign_column_always = 1
+
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:all_non_errors == 0 ? '' : printf('%d ⚠', all_non_errors)
+endfunction
+
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  return l:all_errors == 0 ? '' : printf('%d ⨯', all_errors)
+endfunction
+
+function! LightlineLinterOK() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  return l:counts.total == 0 ? '✓' : ''
+endfunction
+
+autocmd User ALELint call lightline#update()
