@@ -24,15 +24,23 @@ Plug 'tpope/vim-vinegar'
 Plug 'Shougo/unite.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'vim-syntastic/syntastic'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'neomake/neomake'
 " Auto save
 Plug '907th/vim-auto-save'
 " Web dev
-Plug 'neomake/neomake'
 Plug 'mattn/emmet-vim'
 Plug 'groenewege/vim-less'
 Plug 'skammer/vim-css-color'
 Plug 'hail2u/vim-css3-syntax'
+Plug 'mxw/vim-jsx'
+" Languages
 Plug 'fatih/vim-go'
+Plug 'pangloss/vim-javascript'
+Plug 'leshill/vim-json'
+if exists('g:nyaovim_version')
+endif
 
 call plug#end()
 "End vim-plug Scripts-------------------------
@@ -162,10 +170,17 @@ set background=dark
 if has("gui_macvim")
     set transparency=5
 end
-colorscheme solarized
+let g:jellybeans_overrides = {
+\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+\}
+colorscheme jellybeans
+"colorscheme solarized
 "colorscheme Tomorrow-Night
 "colorscheme smyck
  
+" Auto save
+let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 
 " search settings
 set incsearch        " find the next match as we type the search
@@ -190,6 +205,50 @@ autocmd BufNewFile,BufRead *.less setlocal ft=less
 autocmd BufNewFile,BufRead *.jade setlocal ft=jade
 "   .go files are golang files
 autocmd BufNewFile,BufRead *.go setlocal ft=go
+
+" golang settings
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_autosave = 1
+let g:go_metalinter_autosave = 1
+let g:go_fmt_command = "goimports"
+
+let g:auto_save_presave_hook = 'call AbortIfGolang()'
+
+function! AbortIfGolang()
+  if &filetype == 'go'
+    let g:auto_save_abort = 1
+  endif
+endfunction
+
+if &filetype == 'go'
+  let g:auto_save_abort = 1
+endif
+
+" jsx settings
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" syntastic + golang
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'gometalinter']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
+
+" syntastic + js
+let g:syntastic_javascript_checkers = ['eslint']
 
 " make undo persistant
 set undofile
@@ -238,13 +297,13 @@ au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>e <Plug>(go-rename)
+au FileType go nmap <F12> <Plug>(go-def)
+"au FileType go nmap <S-F12> <Plug>(go-def-vertical)
+au FileType go nmap <leader>ds <Plug>(go-def-split)
+au FileType go nmap <leader>dv <Plug>(go-def-vertical)
 
 " Does not work
 "au FileType go nmap <Leader>l :!gox -osarch="linux/amd64" -output="bin\{{.Dir}}_{{.OS}}_{{.Arch}}" ./...<cr>
-
-" Auto save
-let g:auto_save = 1
-let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
 
 " set the cursor to a vertical line in insert mode and a solid block
 " in command mode
@@ -280,3 +339,7 @@ noremap  <buffer> <silent> k gk
 noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
+
+if exists('g:nyaovim_version')
+    colorscheme evening
+endif
