@@ -4,6 +4,10 @@ is_osx || return 1
 # Exit if Homebrew is not installed.
 [[ ! "$(type -P brew)" ]] && e_error "Brew recipes need Homebrew to install." && return 1
 
+# Additional kegs
+kegs=(universal-ctags/universal-ctags)
+brew_tap_kegs
+
 # Homebrew recipes
 recipes=(
   android-sdk
@@ -29,6 +33,7 @@ recipes=(
   zsh
   zsh-completions
   fzf
+  universal-ctags
 )
 
 brew_install_recipes

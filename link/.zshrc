@@ -74,3 +74,5 @@ export FZF_DEFAULT_OPTS="
     --color fg:188,hl:103,fg+:222,hl+:104
     --color info:183,prompt:110,spinner:107,pointer:167,marker:215
 "
+
+alias ctags="`brew --prefix`/bin/ctags"
