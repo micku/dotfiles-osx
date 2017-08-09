@@ -67,5 +67,5 @@ if [ -n "${ZSH_VERSION}" ]; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='ag -g "" -U --hidden'
 export FZF_DEFAULT_OPTS="--reverse --inline-info"
-#export FZF_DEFAULT_OPTS="--reverse --inline-info --preview 'head -100 {}'"
