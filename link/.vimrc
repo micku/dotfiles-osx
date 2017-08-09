@@ -26,6 +26,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'w0rp/ale'
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 " Auto save
 Plug '907th/vim-auto-save'
 " Web dev
@@ -340,3 +341,10 @@ function! LightlineLinterOK() abort
 endfunction
 
 autocmd User ALELint call lightline#update()
+
+" fzf
+let g:fzf_command_prefix = 'Fzf'
+nnoremap <leader>- :FzfFiles!<cr>
+nnoremap <leader>, :FzfAg!<cr>
+nnoremap <leader>c :FzfCommits!<cr>
+nnoremap <leader>f :FzfBLines<cr>

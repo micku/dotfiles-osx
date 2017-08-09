@@ -65,3 +65,7 @@ if [ -n "${ZSH_VERSION}" ]; then
       -d node_modules/.bin -o ] && setup_path
   }
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS="--reverse --inline-info"
+#export FZF_DEFAULT_OPTS="--reverse --inline-info --preview 'head -100 {}'"

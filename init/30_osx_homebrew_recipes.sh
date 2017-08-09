@@ -28,6 +28,7 @@ recipes=(
   vim
   zsh
   zsh-completions
+  fzf
 )
 
 brew_install_recipes
