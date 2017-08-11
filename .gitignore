@@ -9,6 +9,7 @@
 /link/.config/*
 !/link/.config/powerline
 !/link/.config/nvim
+!/link/.config/exercism/exercism_completion.zsh
 /link/.vim/.netrwhist
 
 # Don't commit Vim plugins, vim-plug will install them.

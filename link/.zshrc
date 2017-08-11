@@ -76,3 +76,7 @@ export FZF_DEFAULT_OPTS="
 "
 
 alias ctags="`brew --prefix`/bin/ctags"
+
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+  . ~/.config/exercism/exercism_completion.zsh
+fi
