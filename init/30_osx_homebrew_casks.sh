@@ -56,6 +56,7 @@ casks=(
   # Color pickers
   colorpicker-developer
   colorpicker-skalacolor
+  eqmac
 )
 
 # Install Homebrew casks.
