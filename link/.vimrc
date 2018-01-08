@@ -27,6 +27,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'w0rp/ale'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'roxma/python-support.nvim'
+Plug 'will133/vim-dirdiff'
 " Autocompletion
 Plug 'roxma/nvim-completion-manager'
 Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
@@ -166,12 +167,14 @@ if has("gui_running")
     set guioptions-=L  " remove left-hand scroll bar
 end
 
-set guifont=Mensch:h8
-set guifont=Mensch\ 10
-if has("unix")
-  let s:uname = system("uname")
-  if s:uname == "Darwin\n"
-    set guifont=Meslo\ LG\ M\ DZ\ for\ Powerline:h11
+if !has("gui_vimr")
+  set guifont=Mensch:h8
+  set guifont=Mensch\ 10
+  if has("unix")
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+      set guifont=Meslo\ LG\ M\ DZ\ for\ Powerline:h11
+    endif
   endif
 endif
 set background=dark
@@ -198,6 +201,10 @@ set smartcase        " With ignorecase, if all lowercase, case insensitive
 inoremap <Nul> <C-n>
 "  ...and in gui mode
 inoremap <C-Space> <C-n>
+
+" terminal emulator
+tnoremap <Esc> <C-\><C-n>
+highlight TermCursor ctermfg=red guifg=red
  
 " on file types...
 "   .md files are markdown files
@@ -262,10 +269,31 @@ if has('nvim')
   nmap <bs> :<c-u>TmuxNavigateLeft<cr>
 endif
 nmap <silent> <C-tab> <C-w>w
-nmap <silent> <C-t><C-j> <C-w>s-
-nmap <silent> <C-t><C-k> <C-w>s-
-nmap <silent> <C-t><C-l> <C-w>v-
-nmap <silent> <C-t><C-s> <C-w>v-
+" TODO: Creating a new split in Netrw was helpful, but
+" not working with terminal because of the autocmd below
+"nmap <silent> <C-t><C-j> <C-w>s-
+"nmap <silent> <C-t><C-k> <C-w>s-
+"nmap <silent> <C-t><C-l> <C-w>v-
+"nmap <silent> <C-t><C-s> <C-w>v-
+nnoremap <C-t><C-j> <C-w>s
+nnoremap <C-t><C-k> <C-w>s
+nnoremap <C-t><C-l> <C-w>v
+nnoremap <C-t><C-h> <C-w>v
+tnoremap <C-t><C-j> <C-\><C-N><C-w>s
+tnoremap <C-t><C-k> <C-\><C-N><C-w>s
+tnoremap <C-t><C-l> <C-\><C-N><C-w>v
+tnoremap <C-t><C-h> <C-\><C-N><C-w>v
+
+nnoremap ˙ :vertical resize -5<CR>
+nnoremap ¬ :vertical resize +5<CR>
+nnoremap ∆ :vertical resize -5<CR>
+nnoremap ˚ :vertical resize +5<CR>
+
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
+autocmd BufWinEnter,WinEnter term://* startinsert
 
 " vim-expand-region custom config
 vmap v <Plug>(expand_region_expand)
