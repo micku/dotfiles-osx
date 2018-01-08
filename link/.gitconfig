@@ -79,8 +79,13 @@
     # For username / github token / etc
     path = ~/.gitconfig.local
 [user]
-    name = Michele Gargiulo
-    email = michele@grg.io
+	name = Michele Gargiulo
+	email = michele@grg.io
 
 [init]
     templatedir = ~/.git_template
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
