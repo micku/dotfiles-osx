@@ -19,6 +19,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-vinegar'
 Plug 'terryma/vim-expand-region'
@@ -29,7 +30,8 @@ Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'roxma/python-support.nvim'
 Plug 'will133/vim-dirdiff'
 " Autocompletion
-Plug 'roxma/nvim-completion-manager'
+"Plug 'roxma/nvim-completion-manager' # Temporarly commented to silence an
+"error
 Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
 " Auto save
 Plug '907th/vim-auto-save'
