@@ -45,6 +45,7 @@ casks=(
   sequel-pro
   skype
   slack
+  discord
   spectacle
   spotify
   the-unarchiver
@@ -57,6 +58,7 @@ casks=(
   colorpicker-developer
   colorpicker-skalacolor
   eqmac
+  disk-inventory-x
 )
 
 # Install Homebrew casks.
