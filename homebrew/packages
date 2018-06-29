@@ -2,6 +2,8 @@ cmatrix
 coreutils
 cowsay
 docker
+docker-compose
+docker-machine-driver-xhyve
 fzf
 git
 git-extras
@@ -9,8 +11,7 @@ htop-osx
 neovim
 nmap
 node
-python
-python3
+pyenv
 reattach-to-user-namespace
 redis
 ruby
@@ -20,9 +21,9 @@ terminal-notifier
 the_silver_searcher
 tmux
 tree
-universal-ctags
 vim
 wget
+xhyve 
 xz
 zsh
 zsh-completions
