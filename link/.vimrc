@@ -29,6 +29,9 @@ Plug 'w0rp/ale'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'roxma/python-support.nvim'
 Plug 'will133/vim-dirdiff'
+Plug 'Shougo/vimfiler.vim'
+Plug 'Shougo/unite.vim'
+Plug 'ryanoasis/vim-devicons'
 " Autocompletion
 "Plug 'roxma/nvim-completion-manager' # Temporarly commented to silence an
 "error
@@ -170,8 +173,9 @@ if has("gui_running")
 end
 
 if !has("gui_vimr")
-  set guifont=Mensch:h8
-  set guifont=Mensch\ 10
+  "set guifont=Mensch:h8
+  "set guifont=Mensch\ 10
+  set guifont=OperatorMono\ Nerd\ Font:h10
   if has("unix")
     let s:uname = system("uname")
     if s:uname == "Darwin\n"
@@ -260,6 +264,11 @@ nnoremap <leader><space> :noh<cr>
 " netrw configuration
 let g:netrw_liststyle = 3
 set wildignore+=*.pyc
+
+" VimFiler
+let g:vimfiler_as_default_explorer=1
+let g:vimfiler_tree_indentation = 2
+let g:vimfiler_ignore_pattern = ['^\.DS_Store$', '*.pyc']
 
 " Windows splitting
 set splitbelow
