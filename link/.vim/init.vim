@@ -1,1 +1,0 @@
-/Users/mgargi01/.dotfiles/link/.vimrc

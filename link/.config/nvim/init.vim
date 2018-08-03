@@ -390,6 +390,8 @@ nnoremap <leader>- :FzfFiles!<cr>
 nnoremap <leader>, :FzfAg!<cr>
 nnoremap <leader>c :FzfCommits!<cr>
 nnoremap <leader>f :FzfBLines<cr>
+" To use fzf in Vim, add the following line to your .vimrc:
+" set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 
 " nvim-completion-manager
 " for python completions

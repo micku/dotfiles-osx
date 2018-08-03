@@ -5,6 +5,8 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+if [ "$TMUX" = "" ]; then tmux; fi
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -13,12 +15,12 @@ fi
 #ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=magenta'
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
-eval $(gdircolors -b $HOME/.dircolors)
+#eval $(gdircolors -b $HOME/.dircolors)
 
 # Aliases
 alias v=nvim
 alias g=git
-unalias lt
+#unalias lt
 
 # Load custom functions
 source ~/.zsh/func/functions
@@ -75,7 +77,7 @@ export FZF_DEFAULT_OPTS="
     --color info:183,prompt:110,spinner:107,pointer:167,marker:215
 "
 
-alias ctags="`brew --prefix`/bin/ctags"
+#alias ctags="`brew --prefix`/bin/ctags"
 
 if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
   . ~/.config/exercism/exercism_completion.zsh

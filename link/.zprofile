@@ -74,3 +74,4 @@ fi
 TMPPREFIX="${TMPDIR%/}/zsh"
 
 export GOPATH=$HOME/Dev/Clienti/go/
+export PATH='/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin':"$PATH"
