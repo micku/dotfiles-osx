@@ -48,6 +48,7 @@ Plug 'mxw/vim-jsx'
 Plug 'fatih/vim-go'
 Plug 'pangloss/vim-javascript'
 Plug 'leshill/vim-json'
+Plug 'ambv/black'
 
 call plug#end()
 "End vim-plug Scripts-------------------------
@@ -117,7 +118,7 @@ filetype plugin on
 filetype indent on
  
 " reload files changed outside vim
-set autoread         
+set autoread " Doesn't work, see comments: https://unix.stackexchange.com/a/149214/86007
  
 " encoding is utf 8
 set encoding=utf-8
@@ -261,6 +262,9 @@ set directory=$HOME/.vim/temp//
 " use <leader-space> to remove search higlight
 nnoremap <leader><space> :noh<cr>
 
+" use <leader-t> to find all TOD in Python code
+noremap <Leader>t :noautocmd vimgrep /TODO/j **/*.py<CR>:cw<CR>
+
 " netrw configuration
 let g:netrw_liststyle = 3
 set wildignore+=*.pyc
@@ -392,6 +396,9 @@ nnoremap <leader>c :FzfCommits!<cr>
 nnoremap <leader>f :FzfBLines<cr>
 " To use fzf in Vim, add the following line to your .vimrc:
 " set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
+
+" Black
+let g:black_linelength=80
 
 " nvim-completion-manager
 " for python completions
