@@ -21,6 +21,7 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 alias v=nvim
 alias g=git
 #unalias lt
+alias tree='tree -a -I "*.pyc|__pycache__|.git|.v|.pytest_cache"'
 
 # Load custom functions
 source ~/.zsh/func/functions
@@ -82,3 +83,5 @@ export FZF_DEFAULT_OPTS="
 if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
   . ~/.config/exercism/exercism_completion.zsh
 fi
+
+export DOCKER_HOST=tcp://0.0.0.0:2375
