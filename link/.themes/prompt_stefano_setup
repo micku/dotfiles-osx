@@ -43,63 +43,25 @@ function prompt_stefano_pwd {
   fi
 }
 
-function prompt_stefano_git_info {
-  if (( _prompt_stefano_precmd_async_pid > 0 )); then
-    # Append Git status.
-    if [[ -s "$_prompt_stefano_precmd_async_data" ]]; then
-      alias typeset='typeset -g'
-      source "$_prompt_stefano_precmd_async_data"
-      RPROMPT+='${git_info:+${(e)git_info[status]}}'
-      unalias typeset
-    fi
-
-    # Reset PID.
-    _prompt_stefano_precmd_async_pid=0
-
-    # Redisplay prompt.
-    zle && zle reset-prompt
-  fi
-}
-
-function prompt_stefano_precmd_async {
-  # Get Git repository information.
-  if (( $+functions[git-info] )); then
-    git-info
-    typeset -p git_info >! "$_prompt_stefano_precmd_async_data"
-  fi
-
-  # Signal completion to parent process.
-  kill -WINCH $$
-}
-
 function prompt_stefano_precmd {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
+
+  # Get Git repository information.
+  git-info
 
   # Format PWD.
   prompt_stefano_pwd
 
   # Define prompts.
   RPROMPT='${editor_info[overwrite]}%(?:: %F{1}⏎%f)${VIM:+" %B%F{6}V%f%b"}'
-
-  # Kill the old process of slow commands if it is still running.
-  if (( _prompt_stefano_precmd_async_pid > 0 )); then
-    kill -KILL "$_prompt_stefano_precmd_async_pid" &>/dev/null
-  fi
-
-  # Compute slow commands in the background.
-  # trap prompt_stefano_git_info WINCH
-  prompt_stefano_git_info
-  prompt_stefano_precmd_async &!
-  _prompt_stefano_precmd_async_pid=$!
+  RPROMPT+='${git_info:+${(e)git_info[status]}}'
 }
 
 function prompt_stefano_setup {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
   prompt_opts=(cr percent subst)
-  _prompt_stefano_precmd_async_pid=0
-  _prompt_stefano_precmd_async_data="${TMPPREFIX}-prompt_stefano_data"
 
   # Load required functions.
   autoload -Uz add-zsh-hook
