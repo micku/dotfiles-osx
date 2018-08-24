@@ -50,12 +50,17 @@ function prompt_stefano_precmd {
   # Get Git repository information.
   git-info
 
+  # Check for activated virtualenv
+  if (( $+functions[python-info] )); then
+    python-info
+  fi
+
   # Format PWD.
   prompt_stefano_pwd
 
   # Define prompts.
   RPROMPT='${editor_info[overwrite]}%(?:: %F{1}⏎%f)${VIM:+" %B%F{6}V%f%b"}'
-  RPROMPT+='${git_info:+${(e)git_info[status]}}'
+  RPROMPT+='${git_info:+${(e)git_info[status]}}$python_info[virtualenv]'
 }
 
 function prompt_stefano_setup {
@@ -93,6 +98,9 @@ function prompt_stefano_setup {
   zstyle ':prezto:module:git:info:untracked' format ' %%B%F{15}◼%f%%b'
   zstyle ':prezto:module:git:info:keys' format \
     'status' '$(coalesce "%b" "%p" "%c")%s%A%B%S%a%d%m%r%U%u'
+
+  # Set Python Virtualenv parameters.
+  zstyle ':prezto:module:python:info:virtualenv' format ' 🐍%v'
 
   # Define prompts.
   # PROMPT='${SSH_TTY:+"%F{9}%n%f%F{15}@%f%F{3}%m%f "}%F{220}${_prompt_stefano_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
