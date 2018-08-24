@@ -49,6 +49,8 @@ Plug 'fatih/vim-go'
 Plug 'pangloss/vim-javascript'
 Plug 'leshill/vim-json'
 Plug 'ambv/black'
+Plug 'kalekundert/vim-coiled-snake'
+Plug 'Konfekt/FastFold'
 
 call plug#end()
 "End vim-plug Scripts-------------------------
