@@ -264,7 +264,7 @@ set directory=$HOME/.vim/temp//
 " use <leader-space> to remove search higlight
 nnoremap <leader><space> :noh<cr>
 
-" use <leader-t> to find all TOD in Python code
+" use <leader-t> to find all TODO in Python code
 noremap <Leader>t :noautocmd vimgrep /TODO/j **/*.py<CR>:cw<CR>
 
 " netrw configuration
@@ -414,3 +414,7 @@ let g:python_support_python3_requirements = add(get(g:,'python_support_python3_r
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Python folding
+function! g:CoiledSnakeConfigureFold(fold)
+    let a:fold.num_blanks_below = 0
+endfunction
