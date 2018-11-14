@@ -22,6 +22,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-obsession'
 Plug 'terryma/vim-expand-region'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'editorconfig/editorconfig-vim'
@@ -29,13 +30,16 @@ Plug 'w0rp/ale'
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'roxma/python-support.nvim'
 Plug 'will133/vim-dirdiff'
-Plug 'Shougo/vimfiler.vim'
 Plug 'Shougo/unite.vim'
 Plug 'ryanoasis/vim-devicons'
 " Autocompletion
-"Plug 'roxma/nvim-completion-manager' # Temporarly commented to silence an
-"error
-Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-tern', {'do': 'npm install'} " JS
+Plug 'ncm2/ncm2-jedi' " Python Jedi
+Plug 'phpactor/ncm2-phpactor' " PHP
+Plug 'ncm2/ncm2-path'
+Plug 'wellle/tmux-complete.vim'
 " Auto save
 Plug '907th/vim-auto-save'
 " Web dev
@@ -49,7 +53,6 @@ Plug 'fatih/vim-go'
 Plug 'pangloss/vim-javascript'
 Plug 'leshill/vim-json'
 Plug 'ambv/black'
-Plug 'kalekundert/vim-coiled-snake'
 Plug 'Konfekt/FastFold'
 
 call plug#end()
@@ -89,13 +92,6 @@ let g:lightline = {
       \ 'separator': { 'left': "", 'right': "" },
       \ 'subseparator': { 'left': "|", 'right': "|" }
 \ }
-function! MyFugitive()
-        if &ft !~? 'vimfiler' && exists('*fugitive#head')
-                let _ = fugitive#head()
-                return strlen(_) ? '⎇ '._ : ''
-        endif
-        return ''
-endfunction
 set noshowmode
 
 " ---------------------- USABILITY CONFIGURATION ----------------------
@@ -206,6 +202,12 @@ set ignorecase       " Do case insensitive matching
 set smartcase        " With ignorecase, if all lowercase, case insensitive
 
 " use <C-Space> for Vim's keyword autocomplete
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
 "  ...in the terminal
 inoremap <Nul> <C-n>
 "  ...and in gui mode
@@ -270,11 +272,6 @@ noremap <Leader>t :noautocmd vimgrep /TODO/j **/*.py<CR>:cw<CR>
 " netrw configuration
 let g:netrw_liststyle = 3
 set wildignore+=*.pyc
-
-" VimFiler
-let g:vimfiler_as_default_explorer=1
-let g:vimfiler_tree_indentation = 2
-let g:vimfiler_ignore_pattern = ['^\.DS_Store$', '*.pyc']
 
 " Windows splitting
 set splitbelow
