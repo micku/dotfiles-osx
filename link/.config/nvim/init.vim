@@ -273,6 +273,15 @@ noremap <Leader>t :noautocmd vimgrep /TODO/j **/*.py<CR>:cw<CR>
 let g:netrw_liststyle = 3
 set wildignore+=*.pyc
 
+function! NetrwBuf()
+  nmap <buffer> h -
+  nmap <buffer> l <CR>
+endfunction
+
+augroup FILETYPES
+  autocmd FileType netrw call NetrwBuf()
+augroup END
+
 " Windows splitting
 set splitbelow
 set splitright
